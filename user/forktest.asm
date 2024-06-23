@@ -24,7 +24,7 @@ print(const char *s)
   18:	85a6                	mv	a1,s1
   1a:	4505                	li	a0,1
   1c:	00000097          	auipc	ra,0x0
-  20:	3a0080e7          	jalr	928(ra) # 3bc <write>
+  20:	3b6080e7          	jalr	950(ra) # 3d2 <write>
 }
   24:	60e2                	ld	ra,24(sp)
   26:	6442                	ld	s0,16(sp)
@@ -47,7 +47,7 @@ forktest(void)
 
   print("fork test\n");
   3a:	00000517          	auipc	a0,0x0
-  3e:	41650513          	add	a0,a0,1046 # 450 <sysinfo+0xc>
+  3e:	42e50513          	add	a0,a0,1070 # 468 <pgaccess+0xe>
   42:	00000097          	auipc	ra,0x0
   46:	fbe080e7          	jalr	-66(ra) # 0 <print>
 
@@ -56,7 +56,7 @@ forktest(void)
   4c:	3e800913          	li	s2,1000
     pid = fork();
   50:	00000097          	auipc	ra,0x0
-  54:	344080e7          	jalr	836(ra) # 394 <fork>
+  54:	35a080e7          	jalr	858(ra) # 3aa <fork>
     if(pid < 0)
   58:	06054163          	bltz	a0,ba <forktest+0x8c>
       break;
@@ -71,48 +71,48 @@ forktest(void)
   if(n == N){
     print("fork claimed to work N times!\n");
   64:	00000517          	auipc	a0,0x0
-  68:	43c50513          	add	a0,a0,1084 # 4a0 <sysinfo+0x5c>
+  68:	45450513          	add	a0,a0,1108 # 4b8 <pgaccess+0x5e>
   6c:	00000097          	auipc	ra,0x0
   70:	f94080e7          	jalr	-108(ra) # 0 <print>
     exit(1);
   74:	4505                	li	a0,1
   76:	00000097          	auipc	ra,0x0
-  7a:	326080e7          	jalr	806(ra) # 39c <exit>
+  7a:	33c080e7          	jalr	828(ra) # 3b2 <exit>
       exit(0);
   7e:	00000097          	auipc	ra,0x0
-  82:	31e080e7          	jalr	798(ra) # 39c <exit>
+  82:	334080e7          	jalr	820(ra) # 3b2 <exit>
   }
 
   for(; n > 0; n--){
     if(wait(0) < 0){
       print("wait stopped early\n");
   86:	00000517          	auipc	a0,0x0
-  8a:	3da50513          	add	a0,a0,986 # 460 <sysinfo+0x1c>
+  8a:	3f250513          	add	a0,a0,1010 # 478 <pgaccess+0x1e>
   8e:	00000097          	auipc	ra,0x0
   92:	f72080e7          	jalr	-142(ra) # 0 <print>
       exit(1);
   96:	4505                	li	a0,1
   98:	00000097          	auipc	ra,0x0
-  9c:	304080e7          	jalr	772(ra) # 39c <exit>
+  9c:	31a080e7          	jalr	794(ra) # 3b2 <exit>
     }
   }
 
   if(wait(0) != -1){
     print("wait got too many\n");
   a0:	00000517          	auipc	a0,0x0
-  a4:	3d850513          	add	a0,a0,984 # 478 <sysinfo+0x34>
+  a4:	3f050513          	add	a0,a0,1008 # 490 <pgaccess+0x36>
   a8:	00000097          	auipc	ra,0x0
   ac:	f58080e7          	jalr	-168(ra) # 0 <print>
     exit(1);
   b0:	4505                	li	a0,1
   b2:	00000097          	auipc	ra,0x0
-  b6:	2ea080e7          	jalr	746(ra) # 39c <exit>
+  b6:	300080e7          	jalr	768(ra) # 3b2 <exit>
   for(; n > 0; n--){
   ba:	00905b63          	blez	s1,d0 <forktest+0xa2>
     if(wait(0) < 0){
   be:	4501                	li	a0,0
   c0:	00000097          	auipc	ra,0x0
-  c4:	2e4080e7          	jalr	740(ra) # 3a4 <wait>
+  c4:	2fa080e7          	jalr	762(ra) # 3ba <wait>
   c8:	fa054fe3          	bltz	a0,86 <forktest+0x58>
   for(; n > 0; n--){
   cc:	34fd                	addw	s1,s1,-1
@@ -120,14 +120,14 @@ forktest(void)
   if(wait(0) != -1){
   d0:	4501                	li	a0,0
   d2:	00000097          	auipc	ra,0x0
-  d6:	2d2080e7          	jalr	722(ra) # 3a4 <wait>
+  d6:	2e8080e7          	jalr	744(ra) # 3ba <wait>
   da:	57fd                	li	a5,-1
   dc:	fcf512e3          	bne	a0,a5,a0 <forktest+0x72>
   }
 
   print("fork test OK\n");
   e0:	00000517          	auipc	a0,0x0
-  e4:	3b050513          	add	a0,a0,944 # 490 <sysinfo+0x4c>
+  e4:	3c850513          	add	a0,a0,968 # 4a8 <pgaccess+0x4e>
   e8:	00000097          	auipc	ra,0x0
   ec:	f18080e7          	jalr	-232(ra) # 0 <print>
 }
@@ -153,7 +153,7 @@ main(void)
   exit(0);
  10c:	4501                	li	a0,0
  10e:	00000097          	auipc	ra,0x0
- 112:	28e080e7          	jalr	654(ra) # 39c <exit>
+ 112:	2a4080e7          	jalr	676(ra) # 3b2 <exit>
 
 0000000000000116 <_main>:
 //
@@ -173,7 +173,7 @@ _main()
   exit(0);
  126:	4501                	li	a0,0
  128:	00000097          	auipc	ra,0x0
- 12c:	274080e7          	jalr	628(ra) # 39c <exit>
+ 12c:	28a080e7          	jalr	650(ra) # 3b2 <exit>
 
 0000000000000130 <strcpy>:
 }
@@ -355,7 +355,7 @@ gets(char *buf, int max)
  214:	faf40593          	add	a1,s0,-81
  218:	4501                	li	a0,0
  21a:	00000097          	auipc	ra,0x0
- 21e:	19a080e7          	jalr	410(ra) # 3b4 <read>
+ 21e:	1b0080e7          	jalr	432(ra) # 3ca <read>
     if(cc < 1)
  222:	00a05e63          	blez	a0,23e <gets+0x56>
     buf[i++] = c;
@@ -406,7 +406,7 @@ stat(const char *n, struct stat *st)
   fd = open(n, O_RDONLY);
  268:	4581                	li	a1,0
  26a:	00000097          	auipc	ra,0x0
- 26e:	172080e7          	jalr	370(ra) # 3dc <open>
+ 26e:	188080e7          	jalr	392(ra) # 3f2 <open>
   if(fd < 0)
  272:	02054663          	bltz	a0,29e <stat+0x42>
  276:	e426                	sd	s1,8(sp)
@@ -415,12 +415,12 @@ stat(const char *n, struct stat *st)
   r = fstat(fd, st);
  27a:	85ca                	mv	a1,s2
  27c:	00000097          	auipc	ra,0x0
- 280:	178080e7          	jalr	376(ra) # 3f4 <fstat>
+ 280:	18e080e7          	jalr	398(ra) # 40a <fstat>
  284:	892a                	mv	s2,a0
   close(fd);
  286:	8526                	mv	a0,s1
  288:	00000097          	auipc	ra,0x0
- 28c:	13c080e7          	jalr	316(ra) # 3c4 <close>
+ 28c:	152080e7          	jalr	338(ra) # 3da <close>
   return r;
  290:	64a2                	ld	s1,8(sp)
 }
@@ -593,234 +593,254 @@ memcpy(void *dst, const void *src, uint n)
  390:	0141                	add	sp,sp,16
  392:	8082                	ret
 
-0000000000000394 <fork>:
+0000000000000394 <ugetpid>:
+
+#ifdef LAB_PGTBL
+int
+ugetpid(void)
+{
+ 394:	1141                	add	sp,sp,-16
+ 396:	e422                	sd	s0,8(sp)
+ 398:	0800                	add	s0,sp,16
+  struct usyscall *u = (struct usyscall *)USYSCALL;
+  return u->pid;
+ 39a:	040007b7          	lui	a5,0x4000
+ 39e:	17f5                	add	a5,a5,-3 # 3fffffd <__global_pointer$+0x3fff07d>
+ 3a0:	07b2                	sll	a5,a5,0xc
+}
+ 3a2:	4388                	lw	a0,0(a5)
+ 3a4:	6422                	ld	s0,8(sp)
+ 3a6:	0141                	add	sp,sp,16
+ 3a8:	8082                	ret
+
+00000000000003aa <fork>:
 # generated by usys.pl - do not edit
 #include "kernel/syscall.h"
 .global fork
 fork:
  li a7, SYS_fork
- 394:	4885                	li	a7,1
+ 3aa:	4885                	li	a7,1
  ecall
- 396:	00000073          	ecall
+ 3ac:	00000073          	ecall
  ret
- 39a:	8082                	ret
+ 3b0:	8082                	ret
 
-000000000000039c <exit>:
+00000000000003b2 <exit>:
 .global exit
 exit:
  li a7, SYS_exit
- 39c:	4889                	li	a7,2
+ 3b2:	4889                	li	a7,2
  ecall
- 39e:	00000073          	ecall
+ 3b4:	00000073          	ecall
  ret
- 3a2:	8082                	ret
+ 3b8:	8082                	ret
 
-00000000000003a4 <wait>:
+00000000000003ba <wait>:
 .global wait
 wait:
  li a7, SYS_wait
- 3a4:	488d                	li	a7,3
+ 3ba:	488d                	li	a7,3
  ecall
- 3a6:	00000073          	ecall
+ 3bc:	00000073          	ecall
  ret
- 3aa:	8082                	ret
+ 3c0:	8082                	ret
 
-00000000000003ac <pipe>:
+00000000000003c2 <pipe>:
 .global pipe
 pipe:
  li a7, SYS_pipe
- 3ac:	4891                	li	a7,4
+ 3c2:	4891                	li	a7,4
  ecall
- 3ae:	00000073          	ecall
+ 3c4:	00000073          	ecall
  ret
- 3b2:	8082                	ret
+ 3c8:	8082                	ret
 
-00000000000003b4 <read>:
+00000000000003ca <read>:
 .global read
 read:
  li a7, SYS_read
- 3b4:	4895                	li	a7,5
+ 3ca:	4895                	li	a7,5
  ecall
- 3b6:	00000073          	ecall
+ 3cc:	00000073          	ecall
  ret
- 3ba:	8082                	ret
+ 3d0:	8082                	ret
 
-00000000000003bc <write>:
+00000000000003d2 <write>:
 .global write
 write:
  li a7, SYS_write
- 3bc:	48c1                	li	a7,16
+ 3d2:	48c1                	li	a7,16
  ecall
- 3be:	00000073          	ecall
+ 3d4:	00000073          	ecall
  ret
- 3c2:	8082                	ret
+ 3d8:	8082                	ret
 
-00000000000003c4 <close>:
+00000000000003da <close>:
 .global close
 close:
  li a7, SYS_close
- 3c4:	48d5                	li	a7,21
+ 3da:	48d5                	li	a7,21
  ecall
- 3c6:	00000073          	ecall
+ 3dc:	00000073          	ecall
  ret
- 3ca:	8082                	ret
+ 3e0:	8082                	ret
 
-00000000000003cc <kill>:
+00000000000003e2 <kill>:
 .global kill
 kill:
  li a7, SYS_kill
- 3cc:	4899                	li	a7,6
+ 3e2:	4899                	li	a7,6
  ecall
- 3ce:	00000073          	ecall
+ 3e4:	00000073          	ecall
  ret
- 3d2:	8082                	ret
+ 3e8:	8082                	ret
 
-00000000000003d4 <exec>:
+00000000000003ea <exec>:
 .global exec
 exec:
  li a7, SYS_exec
- 3d4:	489d                	li	a7,7
+ 3ea:	489d                	li	a7,7
  ecall
- 3d6:	00000073          	ecall
+ 3ec:	00000073          	ecall
  ret
- 3da:	8082                	ret
+ 3f0:	8082                	ret
 
-00000000000003dc <open>:
+00000000000003f2 <open>:
 .global open
 open:
  li a7, SYS_open
- 3dc:	48bd                	li	a7,15
+ 3f2:	48bd                	li	a7,15
  ecall
- 3de:	00000073          	ecall
+ 3f4:	00000073          	ecall
  ret
- 3e2:	8082                	ret
+ 3f8:	8082                	ret
 
-00000000000003e4 <mknod>:
+00000000000003fa <mknod>:
 .global mknod
 mknod:
  li a7, SYS_mknod
- 3e4:	48c5                	li	a7,17
+ 3fa:	48c5                	li	a7,17
  ecall
- 3e6:	00000073          	ecall
+ 3fc:	00000073          	ecall
  ret
- 3ea:	8082                	ret
+ 400:	8082                	ret
 
-00000000000003ec <unlink>:
+0000000000000402 <unlink>:
 .global unlink
 unlink:
  li a7, SYS_unlink
- 3ec:	48c9                	li	a7,18
+ 402:	48c9                	li	a7,18
  ecall
- 3ee:	00000073          	ecall
+ 404:	00000073          	ecall
  ret
- 3f2:	8082                	ret
+ 408:	8082                	ret
 
-00000000000003f4 <fstat>:
+000000000000040a <fstat>:
 .global fstat
 fstat:
  li a7, SYS_fstat
- 3f4:	48a1                	li	a7,8
+ 40a:	48a1                	li	a7,8
  ecall
- 3f6:	00000073          	ecall
+ 40c:	00000073          	ecall
  ret
- 3fa:	8082                	ret
+ 410:	8082                	ret
 
-00000000000003fc <link>:
+0000000000000412 <link>:
 .global link
 link:
  li a7, SYS_link
- 3fc:	48cd                	li	a7,19
+ 412:	48cd                	li	a7,19
  ecall
- 3fe:	00000073          	ecall
+ 414:	00000073          	ecall
  ret
- 402:	8082                	ret
+ 418:	8082                	ret
 
-0000000000000404 <mkdir>:
+000000000000041a <mkdir>:
 .global mkdir
 mkdir:
  li a7, SYS_mkdir
- 404:	48d1                	li	a7,20
+ 41a:	48d1                	li	a7,20
  ecall
- 406:	00000073          	ecall
+ 41c:	00000073          	ecall
  ret
- 40a:	8082                	ret
+ 420:	8082                	ret
 
-000000000000040c <chdir>:
+0000000000000422 <chdir>:
 .global chdir
 chdir:
  li a7, SYS_chdir
- 40c:	48a5                	li	a7,9
+ 422:	48a5                	li	a7,9
  ecall
- 40e:	00000073          	ecall
+ 424:	00000073          	ecall
  ret
- 412:	8082                	ret
+ 428:	8082                	ret
 
-0000000000000414 <dup>:
+000000000000042a <dup>:
 .global dup
 dup:
  li a7, SYS_dup
- 414:	48a9                	li	a7,10
+ 42a:	48a9                	li	a7,10
  ecall
- 416:	00000073          	ecall
+ 42c:	00000073          	ecall
  ret
- 41a:	8082                	ret
+ 430:	8082                	ret
 
-000000000000041c <getpid>:
+0000000000000432 <getpid>:
 .global getpid
 getpid:
  li a7, SYS_getpid
- 41c:	48ad                	li	a7,11
+ 432:	48ad                	li	a7,11
  ecall
- 41e:	00000073          	ecall
+ 434:	00000073          	ecall
  ret
- 422:	8082                	ret
+ 438:	8082                	ret
 
-0000000000000424 <sbrk>:
+000000000000043a <sbrk>:
 .global sbrk
 sbrk:
  li a7, SYS_sbrk
- 424:	48b1                	li	a7,12
+ 43a:	48b1                	li	a7,12
  ecall
- 426:	00000073          	ecall
+ 43c:	00000073          	ecall
  ret
- 42a:	8082                	ret
+ 440:	8082                	ret
 
-000000000000042c <sleep>:
+0000000000000442 <sleep>:
 .global sleep
 sleep:
  li a7, SYS_sleep
- 42c:	48b5                	li	a7,13
+ 442:	48b5                	li	a7,13
  ecall
- 42e:	00000073          	ecall
+ 444:	00000073          	ecall
  ret
- 432:	8082                	ret
+ 448:	8082                	ret
 
-0000000000000434 <uptime>:
+000000000000044a <uptime>:
 .global uptime
 uptime:
  li a7, SYS_uptime
- 434:	48b9                	li	a7,14
+ 44a:	48b9                	li	a7,14
  ecall
- 436:	00000073          	ecall
+ 44c:	00000073          	ecall
  ret
- 43a:	8082                	ret
+ 450:	8082                	ret
 
-000000000000043c <trace>:
-.global trace
-trace:
- li a7, SYS_trace
- 43c:	48d9                	li	a7,22
+0000000000000452 <connect>:
+.global connect
+connect:
+ li a7, SYS_connect
+ 452:	48f5                	li	a7,29
  ecall
- 43e:	00000073          	ecall
+ 454:	00000073          	ecall
  ret
- 442:	8082                	ret
+ 458:	8082                	ret
 
-0000000000000444 <sysinfo>:
-.global sysinfo
-sysinfo:
- li a7, SYS_sysinfo
- 444:	48dd                	li	a7,23
+000000000000045a <pgaccess>:
+.global pgaccess
+pgaccess:
+ li a7, SYS_pgaccess
+ 45a:	48f9                	li	a7,30
  ecall
- 446:	00000073          	ecall
+ 45c:	00000073          	ecall
  ret
- 44a:	8082                	ret
+ 460:	8082                	ret

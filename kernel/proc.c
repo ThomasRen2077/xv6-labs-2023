@@ -192,11 +192,23 @@ proc_pagetable(struct proc *p)
     uvmfree(pagetable, 0);
     return 0;
   }
+  
+  // map one read-only page at USYSCALL for pid;
+  struct usyscall *u = (struct usyscall *) kalloc();
+  u->pid = p->pid;
+  if(mappages(pagetable, USYSCALL, PGSIZE, (uint64)u, PTE_R | PTE_U) < 0) {
+    kfree(u);
+    uvmunmap(pagetable, USYSCALL, 1, 0);
+    uvmfree(pagetable, 0);
+    return 0;
+  }
+
 
   // map the trapframe page just below the trampoline page, for
   // trampoline.S.
   if(mappages(pagetable, TRAPFRAME, PGSIZE,
               (uint64)(p->trapframe), PTE_R | PTE_W) < 0){
+    kfree(u);
     uvmunmap(pagetable, TRAMPOLINE, 1, 0);
     uvmfree(pagetable, 0);
     return 0;
@@ -212,6 +224,8 @@ proc_freepagetable(pagetable_t pagetable, uint64 sz)
 {
   uvmunmap(pagetable, TRAMPOLINE, 1, 0);
   uvmunmap(pagetable, TRAPFRAME, 1, 0);
+  // Free Pid Page;
+  uvmunmap(pagetable, USYSCALL, 1, 0);
   uvmfree(pagetable, sz);
 }
 
@@ -311,8 +325,6 @@ fork(void)
   safestrcpy(np->name, p->name, sizeof(p->name));
 
   pid = np->pid;
-
-  np->mask = p->mask;
 
   release(&np->lock);
 
@@ -687,16 +699,4 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
-}
-
-uint64 numofproc(void){
-  struct proc *p;
-  uint64 count = 0;
-
-  for(p = proc; p < &proc[NPROC]; p++) {
-    if(p->state != UNUSED)
-      count++;
-  }
-
-  return count;
 }
