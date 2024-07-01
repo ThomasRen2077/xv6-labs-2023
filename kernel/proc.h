@@ -104,4 +104,33 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  int     interval;                               // interrupt intervals
+  uint64  handler;                                // interrupt handler
+  int     t_count;                                // tick_count
+  int     handler_return;                         // handler return status;
+  uint64  saved_epc;                              // saved pc
+  uint64  saved_ra;                               // saved ra
+  uint64  saved_sp;                               // saved sp
+  uint64  saved_a0;                               // saved a0
+  uint64  saved_a1;                               // saved a1
+  uint64  saved_a2;                               // saved a2
+  uint64  saved_a3;                               // saved a3
+  uint64  saved_a4;                               // saved a4
+  uint64  saved_a5;                               // saved a5
+  uint64  saved_a6;                               // saved a6
+  uint64  saved_a7;                               // saved a7
+  uint64  saved_s0;                               // saved s0                                
+  uint64  saved_s1;                               // saved s1
+  uint64  saved_s2;                               // saved s2
+  uint64  saved_s3;                               // saved s3
+  uint64  saved_s4;                               // saved s4
+  uint64  saved_s5;                               // saved s5
+  uint64  saved_s6;                               // saved s6
+  uint64  saved_s7;                               // saved s7
+  uint64  saved_s8;                               // saved s8
+  uint64  saved_s9;                               // saved s9
+  uint64  saved_s10;                              // saved s10
+  uint64  saved_s11;                              // saved s11
+
 };
